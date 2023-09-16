@@ -1,61 +1,25 @@
 package com.br;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class ShowDeRock {
 
-    public static void main(String[] args) {
-        Queue<String> fila = new LinkedList<>();
-        int ingressosVIPExibidos = 0;
-        String pessoaSorteada = null;
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner scanner;
+        Stack pilha = new Stack(); // Classe Pilha
 
-        // Carregar os ingressos vendidos a partir de um arquivo
-        try (BufferedReader br = new BufferedReader(new FileReader("ingressos_vendidos.txt"))) {
-            String linha;
-            while ((linha = br.readLine()) != null) {
-                fila.add(linha);
-            }
-        } catch (IOException e) {
-            System.err.println("Erro ao ler o arquivo de ingressos vendidos.");
-            e.printStackTrace();
-            return;
+        scanner = new Scanner(new File("C:\\Users\\12114376\\IdeaProjects\\ExemplosEstruturaDados\\PilhaDeFrases\\Ingressos.txt"));
+        while (scanner.hasNextLine()){
+            pilha.push(scanner.nextLine());
         }
-
-        // Exibir os 10 primeiros ingressos como entrada VIP
-        System.out.println("Entrada VIP:");
-        for (int i = 0; i < 10; i++) {
-            if (!fila.isEmpty()) {
-                String ingresso = fila.poll();
-                System.out.println("Ingresso VIP: " + ingresso);
-                ingressosVIPExibidos++;
-            }
-        }
-
-        // Sortear uma pessoa para conhecer a banda
-        if (!fila.isEmpty()) {
-            Random random = new Random();
-            int indiceSorteado = random.nextInt(fila.size());
-            for (int i = 0; i < indiceSorteado; i++) {
-                pessoaSorteada = fila.poll();
-            }
-        }
-
-        if (pessoaSorteada != null) {
-            System.out.println("\nPessoa sorteada para conhecer a banda: " + pessoaSorteada);
-        } else {
-            System.out.println("\nNinguém sorteado para conhecer a banda.");
-        }
-
-        // Exibir o restante da fila (após entrada VIP e sorteio)
-        System.out.println("\nFila restante:");
-        while (!fila.isEmpty()) {
-            System.out.println(fila.poll());
+        System.out.println("Tamanho da Pilha " + pilha.size());
+        System.out.println("****Pilha de Nomes*****");
+        while(!pilha.empty())
+        {
+            System.out.println(pilha.pop());
         }
     }
-}
 
+}
