@@ -1,40 +1,25 @@
 package com.br;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class PilhaDeFrases {
-    public static void main(String[] args) {
-        String arquivo = "frases_de_busca.txt"; // Altere o nome do arquivo conforme necessário
 
-        Stack<String> pilha = new Stack<>();
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner scanner;
+        Stack pilha = new Stack(); // Classe Pilha
 
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            while ((linha = br.readLine()) != null) {
-                pilha.push(linha);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        scanner = new Scanner(new File("C:\\Users\\12114376\\IdeaProjects\\ExemplosEstruturaDados\\PilhaDeFrases\\Frases.txt"));
+        while (scanner.hasNextLine()){
+            pilha.push(scanner.nextLine());
         }
-
-        Stack<String> top10Frases = new Stack<>();
-        int count = 0;
-
-        while (!pilha.isEmpty() && count < 10) {
-            top10Frases.push(pilha.pop());
-            count++;
-        }
-
-        System.out.println("Top 10 frases mais buscadas por último:");
-        while (!top10Frases.isEmpty()) {
-            System.out.println(top10Frases.pop());
-        }
-
-        // Desempilhar o restante dos dados depois da 10ª frase
-        while (!pilha.isEmpty()) {
-            pilha.pop();
+        System.out.println("Tamanho da Pilha " + pilha.size());
+        System.out.println("****Pilha de Nomes*****");
+        while(!pilha.empty())
+        {
+            System.out.println(pilha.pop());
         }
     }
+
 }
